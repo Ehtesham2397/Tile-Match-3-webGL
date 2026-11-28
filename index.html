@@ -13,7 +13,19 @@
       --bar-bg: rgba(255,255,255,.25); --bar: #ffd84d; --text: #fff;
     }
     html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #1b1035; }
-    #unity-container { position: fixed; inset: 0; }
+    /* Game UI is portrait 1080x1920 (9:16): keep that shape, centered.
+       On wide screens it is letterboxed; on phones (portrait) it fills the screen. */
+    body { background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b); }
+    #unity-container {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      height: 100vh; height: 100dvh;
+      width: calc(100vh * 9 / 16); width: calc(100dvh * 9 / 16);
+      max-width: 100vw;
+      box-shadow: 0 0 40px rgba(0,0,0,.45);
+    }
+    @media (max-aspect-ratio: 9/16) {
+      #unity-container { width: 100vw; height: 100vh; height: 100dvh; box-shadow: none; }
+    }
     #unity-canvas { width: 100%; height: 100%; display: block; background: #1b1035; }
 
     /* ---------- Loader ---------- */
